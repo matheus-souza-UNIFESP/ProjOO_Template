@@ -4,10 +4,12 @@ abstract class Template {
     sort(lista: Array<string>) {
         const n = lista.length
         for(let i = 0; i < n; i++) {
-            let min = lista[i]
+            let min = i
             for(let j = i + 1; j < n; j++) {
-                if(this.comparator(min, lista[j]) < 0) {
-                    [min, lista[j]] = [lista[j], min]
+                if(this.comparator(lista[min]!, lista[j]!) > 0) {
+                    let temp = lista[min]
+                    lista[min]! = lista[j]
+                    lista[j]! = temp
                 }
             }
         }
@@ -25,8 +27,8 @@ class SortAlfabetico extends Template {
 
 class SortTamanho extends Template {
     comparator(s1: string, s2: string): number {
-        if(s1.length > s2.length) return -1
-        if(s1.length < s2.length) return 1
+        if(s1.length > s2.length) return 1
+        if(s1.length < s2.length) return -1
         return 0
     }
 }
@@ -58,3 +60,6 @@ function main() {
     compReverso.sort(lista)
     console.log(lista)
 }
+
+
+main()
